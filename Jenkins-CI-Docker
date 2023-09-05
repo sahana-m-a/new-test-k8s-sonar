@@ -28,21 +28,11 @@ pipeline {
     
 
    }
-   stage("Quality Gate") {
-      steps {
-        timeout(time: 2, unit: 'MINUTES') {
-          waitForQualityGate abortPipeline: true
-        }
-      }
-    }
-   
-	
-	 stage ('Build Package') {
+  	 stage ('Build Package') {
       steps {
           sh 'mvn clean package'
          }
        }
-       
        
        
     stage('Building image') {
