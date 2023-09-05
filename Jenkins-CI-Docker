@@ -25,9 +25,14 @@ pipeline {
           sh 'mvn clean package sonar:sonar'
         }
       }
-    
-
-   }
+}
+     stage("Quality Gate") {
+      steps {
+        timeout(time: 2, unit: 'MINUTES') {
+          waitForQualityGate abortPipeline: true
+        }
+      }
+    }
   	 stage ('Build Package') {
       steps {
           sh 'mvn clean package'
